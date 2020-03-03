@@ -1,0 +1,81 @@
+//Andrew Katona
+//Week 8
+//Sort array of scores and find a rank for a new score
+package standard;
+
+import java.util.Scanner;
+
+public class ClassScoreSorter {
+
+//main method
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+
+		String[] gradeliststr = args;
+		int size = gradeliststr.length;
+
+		int[] gradelist = new int[size];
+
+		for (int i = 0; i < size; i++) {
+
+			gradelist[i] = Integer.parseInt(gradeliststr[i]);
+
+		}
+
+		bubbleSort(gradelist);
+		System.out.println("List is sorted.");
+
+		System.out.println(java.util.Arrays.toString(gradelist));
+		int gradecompare = 0;
+
+		do {
+			System.out.println("Enter a grade to compare:");
+			gradecompare = input.nextInt();
+			if (gradecompare >= 0) {
+				int grank = findRank(gradecompare, gradelist);
+
+				int realrank = (grank);
+				System.out.println("Class Rank = " + realrank);
+			}
+		} while (gradecompare >= 0);
+	}
+
+//method for sorting
+	static int[] bubbleSort(int list[]) {
+		int n = list.length;
+		for (int i = 0; i < n - 1; i++)
+			for (int j = 0; j < n - i - 1; j++)
+				if (list[j] > list[j + 1]) {
+					// swap temp and list[i]
+					int temp = list[j];
+					list[j] = list[j + 1];
+					list[j + 1] = temp;
+
+				}
+		return list;
+
+	}
+//method for finding rank
+
+	static int findRank(int compare, int list[]) {
+		int rank = 30;
+		for (int i = list.length - 1; i > 0; i--) {
+			int n1 = list[i];
+			int n2 = list[i - 1];
+
+			if (compare == n1)
+				rank = 30 - i;
+			if (compare == n2)
+				rank = 30 - (i - 1);
+			if (compare < n1 && compare > n2)
+				rank = 30 - (i - 1);
+
+			if (compare > n1)
+				rank = 1;
+
+		}
+
+		return rank;
+	}
+
+}
